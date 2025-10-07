@@ -10,6 +10,7 @@ public record Cliente(Long id,
                       String cpf,
                       String telefone,
                       String endereco,
+                      String cep,
                       LocalDate dataCadastro,
                       Role role) {
 }
