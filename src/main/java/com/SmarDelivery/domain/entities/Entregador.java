@@ -13,5 +13,6 @@ public record Entregador(Long id,
                          MeioDeTransporte meioDeTransporte,
                          boolean disponivel,
                          Locale localizacaoAtual,
-                         Role role) {
+                         Role role,
+                         Long pedidoId) {
 }

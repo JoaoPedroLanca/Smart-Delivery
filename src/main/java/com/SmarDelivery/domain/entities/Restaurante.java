@@ -12,5 +12,6 @@ public record Restaurante(Long id,
                           List<String> cardapido,
                           boolean aberto,
                           LocalDateTime horarioAbertura,
-                          LocalDateTime horarioFechamento) {
+                          LocalDateTime horarioFechamento,
+                          Long pedidoId) {
 }
