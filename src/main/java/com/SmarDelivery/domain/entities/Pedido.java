@@ -7,16 +7,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record Pedido(Long id,
+public record Pedido(Long pedidoId,
                      Long clienteId,
                      Long restauranteId,
-                     List<String> itensDoPedido,
-                     int totalDoPedido,
+                     Long entregadorId,
+                     List<ItemPedido> itensDoPedido,
+                     double totalDoPedido,
                      StatusDoPedido statusPedido,
                      LocalDateTime criacaoDoPedido,
-                     Long entregadorId,
                      String enderecoCliente,
                      String distancia,
                      FormaDePagamento formaDePagamento,
-                     Duration tempoEstimadoDeEntrega) {
+                     Long tempoEstimadoDeEntrega) {
 }
