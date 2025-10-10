@@ -1,4 +1,4 @@
-package com.SmarDelivery.domain.usecases;
+package com.SmarDelivery.domain.usecases.pedido;
 
 import com.SmarDelivery.domain.entities.Pedido;
 

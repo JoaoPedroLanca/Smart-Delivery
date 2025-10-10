@@ -1,6 +1,6 @@
 package com.SmarDelivery.infra.presentation;
 
-import com.SmarDelivery.domain.usecases.CriarPedidoUsecase;
+import com.SmarDelivery.domain.usecases.pedido.CriarPedidoUsecase;
 import com.SmarDelivery.infra.dtos.requests.PedidoRequestDto;
 import com.SmarDelivery.infra.mappers.PedidoMapper;
 import lombok.RequiredArgsConstructor;
