@@ -5,7 +5,7 @@ import com.SmarDelivery.domain.enums.Role;
 import java.time.LocalDate;
 import java.util.List;
 
-public record ClienteResponseDto(Long id,
+public record ClienteResponseDto(Long clienteId,
                                  String nome,
                                  String email,
                                  String cpf,
