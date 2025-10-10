@@ -35,7 +35,8 @@ public class PedidoEntity {
     private EntregadorEntity entregador;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<ItemPedidoEntity> itens;
+    @Column(name = "itens_do_pedido", nullable = false)
+    private List<ItemPedidoEntity> itensDoPedido;
 
     @Column(name = "total_do_pedido",nullable = false)
     private double totalDoPedido;
