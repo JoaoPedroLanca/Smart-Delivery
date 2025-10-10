@@ -1,4 +1,4 @@
-package com.SmarDelivery.domain.gateway;
+package com.SmarDelivery.domain.gateway.pedido;
 
 import com.SmarDelivery.domain.entities.Pedido;
 
