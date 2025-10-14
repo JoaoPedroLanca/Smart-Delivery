@@ -14,4 +14,6 @@ public interface ClienteGateway {
     Optional<Cliente> buscarClientePorId(Long clienteId);
 
     Cliente atualizarCliente(Cliente clienteAtualizado);
+
+    void deletarClientePorId(Long clienteId);
 }
