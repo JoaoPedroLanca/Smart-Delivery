@@ -46,4 +46,9 @@ public class ClienteRepositoryGateway implements ClienteGateway {
         ClienteEntity novosDadosCliente = clienteRepository.save(cliente);
         return clienteMapper.toDomain(novosDadosCliente);
     }
+
+    @Override
+    public void deletarClientePorId(Long clienteId) {
+        clienteRepository.deleteById(clienteId);
+    }
 }
