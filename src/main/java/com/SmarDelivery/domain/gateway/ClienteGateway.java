@@ -12,4 +12,6 @@ public interface ClienteGateway {
     List<Cliente> buscarTodosOsClientes();
 
     Optional<Cliente> buscarClientePorId(Long clienteId);
+
+    Cliente atualizarCliente(Cliente clienteAtualizado);
 }
