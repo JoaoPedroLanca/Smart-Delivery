@@ -4,5 +4,5 @@ import com.SmarDelivery.domain.entities.Cliente;
 
 public interface AtualizarClienteUsecase {
 
-    Cliente atualizarCliente(Cliente clienteAtualizado);
+    Cliente execute(Cliente clienteAtualizado);
 }

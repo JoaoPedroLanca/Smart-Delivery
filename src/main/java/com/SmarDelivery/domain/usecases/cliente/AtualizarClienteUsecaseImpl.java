@@ -12,7 +12,7 @@ public class AtualizarClienteUsecaseImpl implements AtualizarClienteUsecase {
     }
 
     @Override
-    public Cliente atualizarCliente(Cliente clienteAtualizado) {
+    public Cliente execute(Cliente clienteAtualizado) {
         clienteGateway.buscarClientePorId(clienteAtualizado.clienteId()).orElseThrow(() -> new RuntimeException("Cliente não encontrado para atualização"));
         return clienteGateway.atualizarCliente(clienteAtualizado);
     }
