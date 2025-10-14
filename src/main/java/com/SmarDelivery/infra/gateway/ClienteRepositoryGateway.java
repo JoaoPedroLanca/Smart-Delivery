@@ -8,6 +8,7 @@ import com.SmarDelivery.infra.persistence.repositories.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -28,5 +29,14 @@ public class ClienteRepositoryGateway implements ClienteGateway {
         ClienteEntity clienteEntity = clienteMapper.toEntity(cliente);
         ClienteEntity novoCliente = clienteRepository.save(clienteEntity);
         return clienteMapper.toDomain(novoCliente);
+    }
+
+    @Override
+    public List<Cliente> buscarTodosOsClientes() {
+        List<ClienteEntity> clientes = clienteRepository.findAll();
+        return clientes
+                .stream()
+                .map(clienteMapper::toDomain)
+                .toList();
     }
 }
