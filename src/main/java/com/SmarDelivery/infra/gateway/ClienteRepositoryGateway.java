@@ -39,4 +39,11 @@ public class ClienteRepositoryGateway implements ClienteGateway {
                 .map(clienteMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public Cliente atualizarCliente(Cliente clienteAtualizado) {
+        ClienteEntity cliente = clienteMapper.toEntity(clienteAtualizado);
+        ClienteEntity novosDadosCliente = clienteRepository.save(cliente);
+        return clienteMapper.toDomain(novosDadosCliente);
+    }
 }
