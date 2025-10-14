@@ -6,5 +6,7 @@ import java.util.Optional;
 
 public interface ClienteGateway {
 
+    Cliente criarCliente(Cliente cliente);
+
     Optional<Cliente> buscarClientePorId(Long clienteId);
 }
