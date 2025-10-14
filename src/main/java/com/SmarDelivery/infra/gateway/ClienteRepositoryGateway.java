@@ -22,4 +22,11 @@ public class ClienteRepositoryGateway implements ClienteGateway {
         Optional<ClienteEntity> cliente = clienteRepository.findById(clienteId);
         return cliente.map(clienteMapper::toDomain);
     }
+
+    @Override
+    public Cliente criarCliente(Cliente cliente) {
+        ClienteEntity clienteEntity = clienteMapper.toEntity(cliente);
+        ClienteEntity novoCliente = clienteRepository.save(clienteEntity);
+        return clienteMapper.toDomain(novoCliente);
+    }
 }
