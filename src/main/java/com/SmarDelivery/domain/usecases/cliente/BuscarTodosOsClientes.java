@@ -4,7 +4,7 @@ import com.SmarDelivery.domain.entities.Cliente;
 
 import java.util.List;
 
-public interface buscarTodosOsClientes {
+public interface BuscarTodosOsClientes {
 
     List<Cliente> execute();
 }

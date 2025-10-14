@@ -5,11 +5,11 @@ import com.SmarDelivery.domain.gateway.ClienteGateway;
 
 import java.util.List;
 
-public class buscarTodosOsClientesImpl implements buscarTodosOsClientes {
+public class BuscarTodosOsClientesImpl implements BuscarTodosOsClientes {
 
     private final ClienteGateway clienteGateway;
 
-    public buscarTodosOsClientesImpl(ClienteGateway clienteGateway) {
+    public BuscarTodosOsClientesImpl(ClienteGateway clienteGateway) {
         this.clienteGateway = clienteGateway;
     }
 
