@@ -5,25 +5,25 @@ import com.SmarDelivery.domain.usecases.cliente.*;
 import com.SmarDelivery.infra.dtos.responses.ClienteResponseDto;
 import com.SmarDelivery.infra.mappers.ClienteMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
 
-    private final AtualizarClienteUsecase atualizarClienteUsecase;
+//    private final AtualizarClienteUsecase atualizarClienteUsecase;
     private final BuscarClientePorIdUsecase buscarClientePorIdUsecase;
     private final BuscarTodosOsClientes buscarTodosOsClientes;
-    private final CriarClienteUseCase criarClienteUseCase;
-    private final DeletarClientePorId deletarClientePorId;
+//    private final CriarClienteUseCase criarClienteUseCase;
+//    private final DeletarClientePorId deletarClientePorId;
     private final ClienteMapper clienteMapper;
 
     @GetMapping
@@ -35,6 +35,14 @@ public class ClienteController {
                 .toList();
 
         return ResponseEntity.ok(clienteResponse);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ClienteResponseDto> buscarClientePorId(@PathVariable Long id) {
+        Cliente buscarCliente = buscarClientePorIdUsecase.execute(id);
+        ClienteResponseDto clienteResponse = clienteMapper.toResponse(buscarCliente);
+
+        return ResponseEntity.status(HttpStatus.FOUND).body(clienteResponse);
     }
 
 }
