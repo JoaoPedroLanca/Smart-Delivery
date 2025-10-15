@@ -3,8 +3,10 @@ package com.SmarDelivery.infra.presentation;
 import com.SmarDelivery.domain.entities.Cliente;
 import com.SmarDelivery.domain.usecases.cliente.*;
 import com.SmarDelivery.infra.dtos.requests.ClienteRequestDto;
+import com.SmarDelivery.infra.dtos.requests.PatchClienteRequestDto;
 import com.SmarDelivery.infra.dtos.responses.ClienteResponseDto;
 import com.SmarDelivery.infra.mappers.ClienteMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ import java.util.List;
 @RequestMapping("/cliente")
 public class ClienteController {
 
-//    private final AtualizarClienteUsecase atualizarClienteUsecase;
+    private final AtualizarClienteUsecase atualizarClienteUsecase;
     private final BuscarClientePorIdUsecase buscarClientePorIdUsecase;
     private final BuscarTodosOsClientes buscarTodosOsClientes;
     private final CriarClienteUseCase criarClienteUseCase;
@@ -35,7 +37,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteResponse);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ClienteResponseDto> buscarClientePorId(@PathVariable Long id) {
         Cliente buscarCliente = buscarClientePorIdUsecase.execute(id);
         ClienteResponseDto clienteResponse = clienteMapper.toResponse(buscarCliente);
@@ -44,7 +46,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteResponseDto> criarCliente(@RequestBody ClienteRequestDto requestDto) {
+    public ResponseEntity<ClienteResponseDto> criarCliente(@Valid @RequestBody ClienteRequestDto requestDto) {
         var clienteDomain = clienteMapper.toDomain(requestDto);
         var clienteResponse = clienteMapper.toResponse(criarClienteUseCase.execute(clienteDomain));
 
