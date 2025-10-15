@@ -12,8 +12,8 @@ import org.mapstruct.ReportingPolicy;
 public interface ClienteMapper {
 
     @Mapping(target = "clienteId", ignore = true)
-    @Mapping(target = "dataCadastro", ignore = true)
-    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "dataCadastro", expression = "java(java.time.LocalDate.now())")
+    @Mapping(target = "role", expression = "java(com.SmarDelivery.domain.enums.Role.CLIENTE)")
     @Mapping(target = "pedidos", ignore = true)
     Cliente toDomain(ClienteRequestDto dto);
 
