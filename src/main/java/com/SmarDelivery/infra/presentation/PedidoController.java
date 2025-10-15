@@ -1,3 +1,4 @@
+/*
 package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.usecases.pedido.CriarPedidoUsecase;
@@ -32,3 +33,4 @@ public class PedidoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 }
+*/
