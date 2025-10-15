@@ -2,15 +2,13 @@ package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Cliente;
 import com.SmarDelivery.domain.usecases.cliente.*;
+import com.SmarDelivery.infra.dtos.requests.ClienteRequestDto;
 import com.SmarDelivery.infra.dtos.responses.ClienteResponseDto;
 import com.SmarDelivery.infra.mappers.ClienteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class ClienteController {
 //    private final AtualizarClienteUsecase atualizarClienteUsecase;
     private final BuscarClientePorIdUsecase buscarClientePorIdUsecase;
     private final BuscarTodosOsClientes buscarTodosOsClientes;
-//    private final CriarClienteUseCase criarClienteUseCase;
+    private final CriarClienteUseCase criarClienteUseCase;
 //    private final DeletarClientePorId deletarClientePorId;
     private final ClienteMapper clienteMapper;
 
@@ -43,6 +41,14 @@ public class ClienteController {
         ClienteResponseDto clienteResponse = clienteMapper.toResponse(buscarCliente);
 
         return ResponseEntity.status(HttpStatus.FOUND).body(clienteResponse);
+    }
+
+    @PostMapping
+    public ResponseEntity<ClienteResponseDto> criarCliente(@RequestBody ClienteRequestDto requestDto) {
+        var clienteDomain = clienteMapper.toDomain(requestDto);
+        var clienteResponse = clienteMapper.toResponse(criarClienteUseCase.execute(clienteDomain));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteResponse);
     }
 
 }
