@@ -24,4 +24,9 @@ public class BeanConfiguration {
     public CriarClienteUseCase criarClienteUseCase(ClienteGateway clienteGateway) {
         return new CriarClienteUseCaseImpl(clienteGateway);
     }
+
+    @Bean
+    public AtualizarClienteUsecase atualizarClienteUsecase(ClienteGateway clienteGateway) {
+        return new AtualizarClienteUsecaseImpl(clienteGateway);
+    }
 }
