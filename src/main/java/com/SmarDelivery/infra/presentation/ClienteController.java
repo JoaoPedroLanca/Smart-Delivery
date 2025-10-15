@@ -53,4 +53,13 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteResponse);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<ClienteResponseDto> patchCliente(@PathVariable Long id, @RequestBody PatchClienteRequestDto patchDto) {
+        Cliente clienteExistente = buscarClientePorIdUsecase.execute(id);
+        Cliente clienteAtualizado = clienteMapper.patchToCliente(patchDto, clienteExistente);
+        clienteAtualizado = atualizarClienteUsecase.execute(clienteAtualizado);
+        ClienteResponseDto responseDto = clienteMapper.toResponse(clienteAtualizado);
+        return ResponseEntity.ok(responseDto);
+    }
+
 }
