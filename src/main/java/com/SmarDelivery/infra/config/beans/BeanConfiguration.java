@@ -1,10 +1,7 @@
 package com.SmarDelivery.infra.config.beans;
 
 import com.SmarDelivery.domain.gateway.ClienteGateway;
-import com.SmarDelivery.domain.usecases.cliente.BuscarClientePorIdUsecase;
-import com.SmarDelivery.domain.usecases.cliente.BuscarClientePorIdUsecaseImpl;
-import com.SmarDelivery.domain.usecases.cliente.BuscarTodosOsClientes;
-import com.SmarDelivery.domain.usecases.cliente.BuscarTodosOsClientesImpl;
+import com.SmarDelivery.domain.usecases.cliente.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,5 +18,10 @@ public class BeanConfiguration {
     @Bean
     public BuscarTodosOsClientes buscarTodosOsClientes(ClienteGateway clienteGateway) {
         return new BuscarTodosOsClientesImpl(clienteGateway);
+    }
+
+    @Bean
+    public CriarClienteUseCase criarClienteUseCase(ClienteGateway clienteGateway) {
+        return new CriarClienteUseCaseImpl(clienteGateway);
     }
 }
