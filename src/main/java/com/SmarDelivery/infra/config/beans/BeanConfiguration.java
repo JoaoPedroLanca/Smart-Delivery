@@ -29,4 +29,9 @@ public class BeanConfiguration {
     public AtualizarClienteUsecase atualizarClienteUsecase(ClienteGateway clienteGateway) {
         return new AtualizarClienteUsecaseImpl(clienteGateway);
     }
+
+    @Bean
+    public DeletarClientePorId deletarClientePorId(ClienteGateway clienteGateway) {
+        return new DeletarClientePorIdImpl(clienteGateway);
+    }
 }
