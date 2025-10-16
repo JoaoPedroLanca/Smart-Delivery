@@ -44,7 +44,7 @@ public class ClienteController {
         Cliente buscarCliente = buscarClientePorIdUsecase.execute(id);
         ClienteResponseDto clienteResponse = clienteMapper.toResponse(buscarCliente);
 
-        return ResponseEntity.status(HttpStatus.FOUND).body(clienteResponse);
+        return ResponseEntity.ok(clienteResponse);
     }
 
     @PostMapping
