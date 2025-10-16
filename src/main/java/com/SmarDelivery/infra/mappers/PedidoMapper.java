@@ -1,9 +1,8 @@
 package com.SmarDelivery.infra.mappers;
 
-import com.SmarDelivery.domain.entities.ItemPedido;
 import com.SmarDelivery.domain.entities.Pedido;
-import com.SmarDelivery.infra.dtos.requests.PedidoRequestDto;
-import com.SmarDelivery.infra.dtos.responses.PedidoResponseDto;
+import com.SmarDelivery.infra.dtos.requests.pedido.PedidoRequestDto;
+import com.SmarDelivery.infra.dtos.responses.pedido.PedidoResponseDto;
 import com.SmarDelivery.infra.persistence.entities.PedidoEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

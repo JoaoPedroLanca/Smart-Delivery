@@ -1,4 +1,4 @@
-package com.SmarDelivery.infra.dtos.requests;
+package com.SmarDelivery.infra.dtos.requests.cliente;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

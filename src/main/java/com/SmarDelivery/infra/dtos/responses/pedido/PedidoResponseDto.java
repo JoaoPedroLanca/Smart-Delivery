@@ -1,16 +1,15 @@
-package com.SmarDelivery.infra.dtos.responses;
+package com.SmarDelivery.infra.dtos.responses.pedido;
 
 import com.SmarDelivery.domain.enums.FormaDePagamento;
 import com.SmarDelivery.domain.enums.StatusDoPedido;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public record PedidoResponseDto(Long pedidoId,
                                 Long clienteId,
                                 Long restauranteId,
                                 Long entregadorId,
-                                List<ItemPedidoResponseDto> itensDoPedido,
+                                /*List<ItemPedidoResponseDto> itensDoPedido,*/
                                 double totalDoPedido,
                                 StatusDoPedido statusPedido,
                                 LocalDateTime criacaoDoPedido,

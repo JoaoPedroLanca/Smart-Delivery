@@ -1,6 +1,4 @@
-package com.SmarDelivery.infra.dtos.requests;
-
-import java.util.Optional;
+package com.SmarDelivery.infra.dtos.requests.cliente;
 
 public record PatchClienteRequestDto (String nome,
                                       String email,

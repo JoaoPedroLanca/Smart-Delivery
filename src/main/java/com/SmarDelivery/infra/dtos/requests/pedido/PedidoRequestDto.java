@@ -1,11 +1,9 @@
-package com.SmarDelivery.infra.dtos.requests;
+package com.SmarDelivery.infra.dtos.requests.pedido;
 
 import com.SmarDelivery.domain.enums.FormaDePagamento;
 
-import java.util.List;
-
 public record PedidoRequestDto(Long restauranteId,
-                               List<ItemPedidoRequestDto> itensDoPedido,
+                               /*List<ItemPedidoRequestDto> itensDoPedido,*/
                                FormaDePagamento formaDePagamento,
                                String enderecoCliente) {
 }

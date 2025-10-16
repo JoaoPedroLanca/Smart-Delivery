@@ -1,9 +1,9 @@
 package com.SmarDelivery.infra.mappers;
 
 import com.SmarDelivery.domain.entities.Cliente;
-import com.SmarDelivery.infra.dtos.requests.ClienteRequestDto;
-import com.SmarDelivery.infra.dtos.requests.PatchClienteRequestDto;
-import com.SmarDelivery.infra.dtos.responses.ClienteResponseDto;
+import com.SmarDelivery.infra.dtos.requests.cliente.ClienteRequestDto;
+import com.SmarDelivery.infra.dtos.requests.cliente.PatchClienteRequestDto;
+import com.SmarDelivery.infra.dtos.responses.cliente.ClienteResponseDto;
 import com.SmarDelivery.infra.persistence.entities.ClienteEntity;
 import org.mapstruct.*;
 

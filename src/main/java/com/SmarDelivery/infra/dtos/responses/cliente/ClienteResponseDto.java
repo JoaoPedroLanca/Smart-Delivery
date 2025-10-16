@@ -1,6 +1,7 @@
-package com.SmarDelivery.infra.dtos.responses;
+package com.SmarDelivery.infra.dtos.responses.cliente;
 
 import com.SmarDelivery.domain.enums.Role;
+import com.SmarDelivery.infra.dtos.responses.pedido.PedidoResponseDto;
 
 import java.time.LocalDate;
 import java.util.List;
