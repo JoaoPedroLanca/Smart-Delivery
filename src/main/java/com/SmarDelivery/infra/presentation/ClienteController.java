@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,7 +25,7 @@ public class ClienteController {
     private final BuscarClientePorIdUsecase buscarClientePorIdUsecase;
     private final BuscarTodosOsClientes buscarTodosOsClientes;
     private final CriarClienteUseCase criarClienteUseCase;
-//    private final DeletarClientePorId deletarClientePorId;
+    private final DeletarClientePorId deletarClientePorId;
     private final ClienteMapper clienteMapper;
 
     @GetMapping
@@ -60,6 +62,13 @@ public class ClienteController {
         clienteAtualizado = atualizarClienteUsecase.execute(clienteAtualizado);
         ClienteResponseDto responseDto = clienteMapper.toResponse(clienteAtualizado);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarClientePorId(@PathVariable Long id) {
+        deletarClientePorId.execute(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }
