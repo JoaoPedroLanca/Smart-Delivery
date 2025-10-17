@@ -3,8 +3,7 @@ package com.SmarDelivery.infra.config.beans;
 import com.SmarDelivery.domain.gateway.ClienteGateway;
 import com.SmarDelivery.domain.gateway.RestauranteGateway;
 import com.SmarDelivery.domain.usecases.cliente.*;
-import com.SmarDelivery.domain.usecases.restaurante.CriarRestauranteUsecase;
-import com.SmarDelivery.domain.usecases.restaurante.CriarRestauranteUsecaseImpl;
+import com.SmarDelivery.domain.usecases.restaurante.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,5 +44,15 @@ public class BeanConfiguration {
     @Bean
     public CriarRestauranteUsecase criarRestaurante(RestauranteGateway restauranteGateway) {
         return new CriarRestauranteUsecaseImpl(restauranteGateway);
+    }
+
+    @Bean
+    public BuscarTodosRestaurantesUsecase buscarTodosRestaurantesUsecase(RestauranteGateway restauranteGateway) {
+        return new BuscarTodosRestaurantesUsecaseImpl(restauranteGateway);
+    }
+
+    @Bean
+    public BuscarRestaurantePorIdUsecase buscarRestaurantePorIdUsecase(RestauranteGateway restauranteGateway) {
+        return new BuscarRestaurantePorIdUsecaseImpl(restauranteGateway);
     }
 }
