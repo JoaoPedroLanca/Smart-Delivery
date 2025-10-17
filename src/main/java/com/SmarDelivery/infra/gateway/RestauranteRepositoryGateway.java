@@ -8,6 +8,9 @@ import com.SmarDelivery.infra.persistence.repositories.RestauranteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Component
 public class RestauranteRepositoryGateway implements RestauranteGateway {
@@ -20,5 +23,20 @@ public class RestauranteRepositoryGateway implements RestauranteGateway {
         RestauranteEntity restauranteEntity = restauranteMapper.toEntity(restaurante);
         RestauranteEntity novoRestaurante = restauranteRepository.save(restauranteEntity);
         return restauranteMapper.toDomain(novoRestaurante);
+    }
+
+    @Override
+    public List<Restaurante> buscarTodosRestaurantes() {
+        List<RestauranteEntity> restaurante = restauranteRepository.findAll();
+        return restaurante
+                .stream()
+                .map(restauranteMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    public Optional<Restaurante> buscarRestaurantePorId(Long restauranteId) {
+        Optional<RestauranteEntity> restaurante = restauranteRepository.findById(restauranteId);
+        return restaurante.map(restauranteMapper::toDomain);
     }
 }
