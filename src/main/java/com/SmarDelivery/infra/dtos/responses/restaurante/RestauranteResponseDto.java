@@ -15,7 +15,7 @@ public record RestauranteResponseDto(
         boolean aberto,
         LocalDateTime horarioAbertura,
         LocalDateTime horarioFechamento,
-        List<CardapioResponseDto> cardapio,
+        /*List<CardapioResponseDto> cardapio,*/
         List<PedidoResponseDto> pedidos
 ) {
 }
