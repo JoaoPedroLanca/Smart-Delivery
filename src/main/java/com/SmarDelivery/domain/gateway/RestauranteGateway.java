@@ -14,4 +14,6 @@ public interface RestauranteGateway {
     Restaurante criarRestaurante(Restaurante restaurante);
 
     Restaurante atualizarRestaurante(Restaurante restauranteAtualizado);
+
+    void deletarRestaurantePorId(Long restauranteId);
 }
