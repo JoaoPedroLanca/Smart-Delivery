@@ -4,6 +4,5 @@ public record CardapioResponseDto(
         Long produtoId,
         String nome,
         double preco,
-        boolean disponivel,
-        Long restauranteId) {
+        boolean disponivel) {
 }
