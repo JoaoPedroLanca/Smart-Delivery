@@ -1,0 +1,8 @@
+package com.SmarDelivery.domain.usecases.restaurante;
+
+import com.SmarDelivery.domain.entities.Restaurante;
+
+public interface AtualizarRestauranteUsecase {
+
+    Restaurante execute(Restaurante restauranteAtualizado);
+}
