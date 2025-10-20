@@ -12,4 +12,6 @@ public interface RestauranteGateway {
     Optional<Restaurante> buscarRestaurantePorId(Long restauranteId);
 
     Restaurante criarRestaurante(Restaurante restaurante);
+
+    Restaurante atualizarRestaurante(Restaurante restauranteAtualizado);
 }
