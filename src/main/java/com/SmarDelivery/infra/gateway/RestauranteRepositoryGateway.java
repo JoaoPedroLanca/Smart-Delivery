@@ -39,4 +39,11 @@ public class RestauranteRepositoryGateway implements RestauranteGateway {
         Optional<RestauranteEntity> restaurante = restauranteRepository.findById(restauranteId);
         return restaurante.map(restauranteMapper::toDomain);
     }
+
+    @Override
+    public Restaurante atualizarRestaurante(Restaurante restauranteAtualizado) {
+        RestauranteEntity entity = restauranteMapper.toEntity(restauranteAtualizado);
+        RestauranteEntity restauranteSalvo = restauranteRepository.save(entity);
+        return restauranteMapper.toDomain(restauranteSalvo);
+    }
 }
