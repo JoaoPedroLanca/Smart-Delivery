@@ -60,4 +60,9 @@ public class BeanConfiguration {
     public AtualizarRestauranteUsecase atualizarRestauranteUsecase(RestauranteGateway restauranteGateway) {
         return new AtualizarRestauranteUsecaseImpl(restauranteGateway);
     }
+
+    @Bean
+    public DeletarRestaurantePorIdUsecase deletarRestaurantePorIdUsecase(RestauranteGateway restauranteGateway) {
+        return new DeletarRestaurantePorIdUsecaseImpl(restauranteGateway);
+    }
 }
