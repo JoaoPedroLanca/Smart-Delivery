@@ -1,5 +1,6 @@
 package com.SmarDelivery.infra.dtos.responses.restaurante;
 
+import com.SmarDelivery.infra.dtos.responses.cardapio.CardapioResponseDto;
 import com.SmarDelivery.infra.dtos.responses.pedido.PedidoResponseDto;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public record RestauranteResponseDto(
         boolean aberto,
         LocalDateTime horarioAbertura,
         LocalDateTime horarioFechamento,
-        /*List<CardapioResponseDto> cardapio,*/
+        List<CardapioResponseDto> cardapio,
         List<PedidoResponseDto> pedidos
 ) {
 }
