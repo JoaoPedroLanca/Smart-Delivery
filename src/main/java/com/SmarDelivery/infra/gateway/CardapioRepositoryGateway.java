@@ -10,6 +10,8 @@ import com.SmarDelivery.infra.persistence.repositories.RestauranteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Component
 public class CardapioRepositoryGateway implements CardapioGateway {
@@ -27,5 +29,11 @@ public class CardapioRepositoryGateway implements CardapioGateway {
         cardapioEntity.setRestaurante(restauranteEntity);
         var novoCardapio = cardapioRepository.save(cardapioEntity);
         return cardapioMapper.toDomain(novoCardapio);
+    }
+
+    @Override
+    public Optional<Cardapio> buscarCardapioPorId(Long cardapioId) {
+        Optional<CardapioEntity> cardapio = cardapioRepository.findById(cardapioId);
+        return cardapio.map(cardapioMapper::toDomain);
     }
 }
