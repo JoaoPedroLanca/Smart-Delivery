@@ -1,10 +1,7 @@
 package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Restaurante;
-import com.SmarDelivery.domain.usecases.restaurante.AtualizarRestauranteUsecase;
-import com.SmarDelivery.domain.usecases.restaurante.BuscarRestaurantePorIdUsecase;
-import com.SmarDelivery.domain.usecases.restaurante.BuscarTodosRestaurantesUsecase;
-import com.SmarDelivery.domain.usecases.restaurante.CriarRestauranteUsecase;
+import com.SmarDelivery.domain.usecases.restaurante.*;
 import com.SmarDelivery.infra.dtos.requests.restaurante.PatchRestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.requests.restaurante.RestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.responses.restaurante.RestauranteResponseDto;
@@ -25,6 +22,7 @@ public class RestauranteController {
     private final BuscarTodosRestaurantesUsecase buscarTodosRestaurantesUsecase;
     private final BuscarRestaurantePorIdUsecase buscarRestaurantePorIdUsecase;
     private final AtualizarRestauranteUsecase atualizarRestauranteUsecase;
+    private final DeletarRestaurantePorIdUsecase deletarRestaurantePorIdUsecase;
     private final RestauranteMapper restauranteMapper;
 
     @GetMapping
@@ -62,5 +60,11 @@ public class RestauranteController {
         RestauranteResponseDto responseDto = restauranteMapper.toResponse(restauranteAtualizado);
 
         return ResponseEntity.ok(responseDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarRestaurante(@PathVariable Long id) {
+        deletarRestaurantePorIdUsecase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 }
