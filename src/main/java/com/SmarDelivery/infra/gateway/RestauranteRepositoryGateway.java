@@ -46,4 +46,9 @@ public class RestauranteRepositoryGateway implements RestauranteGateway {
         RestauranteEntity restauranteSalvo = restauranteRepository.save(entity);
         return restauranteMapper.toDomain(restauranteSalvo);
     }
+
+    @Override
+    public void deletarRestaurantePorId(Long restauranteId) {
+        restauranteRepository.deleteById(restauranteId);
+    }
 }
