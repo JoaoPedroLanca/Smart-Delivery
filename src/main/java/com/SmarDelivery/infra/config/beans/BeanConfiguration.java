@@ -55,4 +55,9 @@ public class BeanConfiguration {
     public BuscarRestaurantePorIdUsecase buscarRestaurantePorIdUsecase(RestauranteGateway restauranteGateway) {
         return new BuscarRestaurantePorIdUsecaseImpl(restauranteGateway);
     }
+
+    @Bean
+    public AtualizarRestauranteUsecase atualizarRestauranteUsecase(RestauranteGateway restauranteGateway) {
+        return new AtualizarRestauranteUsecaseImpl(restauranteGateway);
+    }
 }
