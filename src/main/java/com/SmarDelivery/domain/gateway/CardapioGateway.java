@@ -9,4 +9,6 @@ public interface CardapioGateway {
     Cardapio criarCardapio(Cardapio cardapio);
 
     Optional<Cardapio> buscarCardapioPorId(Long cardapioId);
+
+    Cardapio atualizarCardapio(Cardapio cardapioAtualizado);
 }
