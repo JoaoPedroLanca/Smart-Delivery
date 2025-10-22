@@ -3,8 +3,7 @@ package com.SmarDelivery.infra.config.beans;
 import com.SmarDelivery.domain.gateway.CardapioGateway;
 import com.SmarDelivery.domain.gateway.ClienteGateway;
 import com.SmarDelivery.domain.gateway.RestauranteGateway;
-import com.SmarDelivery.domain.usecases.cardapio.CriarCardapioUsecase;
-import com.SmarDelivery.domain.usecases.cardapio.CriarCardapioUsecaseImpl;
+import com.SmarDelivery.domain.usecases.cardapio.*;
 import com.SmarDelivery.domain.usecases.cliente.*;
 import com.SmarDelivery.domain.usecases.restaurante.*;
 import lombok.RequiredArgsConstructor;
@@ -72,7 +71,16 @@ public class BeanConfiguration {
     // Beans de Cardapio
 
     @Bean
+    BuscarCardapioPorIdUsecase buscarCardapioPorIdUsecase(CardapioGateway cardapioGateway) {
+        return new BuscarCardapioPorIdUsecaseImpl(cardapioGateway);
+    }
+
+    @Bean
     public CriarCardapioUsecase criarCardapioUsecase(CardapioGateway cardapioGateway, RestauranteGateway restauranteGateway) {
         return new CriarCardapioUsecaseImpl(cardapioGateway, restauranteGateway);
+    }
+
+    @Bean public AtualizarCardapioUsecase atualizarCardapioUsecase(CardapioGateway cardapioGateway) {
+        return new AtualizarCardapioUsecaseImpl(cardapioGateway);
     }
 }
