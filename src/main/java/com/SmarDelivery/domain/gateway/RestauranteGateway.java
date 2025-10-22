@@ -3,6 +3,7 @@ package com.SmarDelivery.domain.gateway;
 import com.SmarDelivery.domain.entities.Restaurante;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface RestauranteGateway {
@@ -13,7 +14,7 @@ public interface RestauranteGateway {
 
     Restaurante criarRestaurante(Restaurante restaurante);
 
-    Restaurante atualizarRestaurante(Restaurante restauranteAtualizado);
+    Restaurante atualizarRestaurante(Long restauranteId, Map<String, Object> atualizacao);
 
     void deletarRestaurantePorId(Long restauranteId);
 }

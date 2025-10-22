@@ -4,6 +4,7 @@ import com.SmarDelivery.domain.entities.Restaurante;
 import com.SmarDelivery.infra.dtos.requests.restaurante.RestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.requests.restaurante.PatchRestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.responses.restaurante.RestauranteResponseDto;
+import com.SmarDelivery.infra.persistence.entities.CardapioEntity;
 import com.SmarDelivery.infra.persistence.entities.RestauranteEntity;
 import org.mapstruct.*;
 
@@ -35,8 +36,8 @@ public interface RestauranteMapper {
             dto.aberto() != null ? dto.aberto() : original.aberto(),
             dto.horarioAbertura() != null ? java.time.LocalDateTime.parse(dto.horarioAbertura()) : original.horarioAbertura(),
             dto.horarioFechamento() != null ? java.time.LocalDateTime.parse(dto.horarioFechamento()) : original.horarioFechamento(),
-            original.cardapio(),
-            original.pedidos()
+            null,
+            null
         );
     }
 }

@@ -1,14 +1,20 @@
 package com.SmarDelivery.infra.gateway;
 
+import com.SmarDelivery.domain.entities.Cliente;
 import com.SmarDelivery.domain.entities.Restaurante;
 import com.SmarDelivery.domain.gateway.RestauranteGateway;
+import com.SmarDelivery.infra.dtos.requests.cliente.PatchClienteRequestDto;
+import com.SmarDelivery.infra.dtos.requests.restaurante.PatchRestauranteRequestDto;
 import com.SmarDelivery.infra.mappers.RestauranteMapper;
+import com.SmarDelivery.infra.persistence.entities.ClienteEntity;
 import com.SmarDelivery.infra.persistence.entities.RestauranteEntity;
 import com.SmarDelivery.infra.persistence.repositories.RestauranteRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -41,10 +47,21 @@ public class RestauranteRepositoryGateway implements RestauranteGateway {
     }
 
     @Override
-    public Restaurante atualizarRestaurante(Restaurante restauranteAtualizado) {
-        RestauranteEntity entity = restauranteMapper.toEntity(restauranteAtualizado);
-        RestauranteEntity restauranteSalvo = restauranteRepository.save(entity);
-        return restauranteMapper.toDomain(restauranteSalvo);
+    public Restaurante atualizarRestaurante(Long restauranteId, Map<String, Object> atualizacao) {
+        RestauranteEntity restauranteEntity = restauranteRepository.findById(restauranteId)
+                .orElseThrow(() -> new RuntimeException("Restaurante não encontrado em sistema"));
+        Restaurante restauranteDomain = restauranteMapper.toDomain(restauranteEntity);
+        ObjectMapper objectMapper = new ObjectMapper();
+        PatchRestauranteRequestDto patchDto = objectMapper.convertValue(atualizacao, PatchRestauranteRequestDto.class);
+        Restaurante restauranteAtualizado = merge(patchDto, restauranteDomain);
+        RestauranteEntity restauranteAtualizadoEntity = restauranteMapper.toEntity(restauranteAtualizado);
+        RestauranteEntity novoRestaurante = restauranteRepository.save(restauranteAtualizadoEntity);
+
+        return restauranteMapper.toDomain(novoRestaurante);
+    }
+
+    private Restaurante merge(PatchRestauranteRequestDto patchDto, Restaurante restaurante) {
+        return restauranteMapper.patchToRestaurante(patchDto, restaurante);
     }
 
     @Override

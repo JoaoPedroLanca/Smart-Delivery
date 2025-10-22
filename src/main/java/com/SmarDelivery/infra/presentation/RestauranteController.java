@@ -2,7 +2,6 @@ package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Restaurante;
 import com.SmarDelivery.domain.usecases.restaurante.*;
-import com.SmarDelivery.infra.dtos.requests.restaurante.PatchRestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.requests.restaurante.RestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.responses.restaurante.RestauranteResponseDto;
 import com.SmarDelivery.infra.mappers.RestauranteMapper;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -53,11 +53,8 @@ public class RestauranteController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<RestauranteResponseDto> atualizarRestaurante(@PathVariable Long id, @RequestBody PatchRestauranteRequestDto patchDto) {
-        Restaurante restauranteExiste = buscarRestaurantePorIdUsecase.execute(id);
-        Restaurante restauranteAtualizado = restauranteMapper.patchToRestaurante(patchDto, restauranteExiste);
-        restauranteAtualizado = atualizarRestauranteUsecase.execute(restauranteAtualizado);
-        RestauranteResponseDto responseDto = restauranteMapper.toResponse(restauranteAtualizado);
+    public ResponseEntity<RestauranteResponseDto> atualizarRestaurante(@PathVariable Long id, @RequestBody Map<String, Object> atualizacao) {
+        RestauranteResponseDto responseDto = restauranteMapper.toResponse(atualizarRestauranteUsecase.execute(id, atualizacao));
 
         return ResponseEntity.ok(responseDto);
     }
