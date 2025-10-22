@@ -2,13 +2,17 @@ package com.SmarDelivery.infra.gateway;
 
 import com.SmarDelivery.domain.entities.Cliente;
 import com.SmarDelivery.domain.gateway.ClienteGateway;
+import com.SmarDelivery.infra.dtos.requests.cliente.PatchClienteRequestDto;
 import com.SmarDelivery.infra.mappers.ClienteMapper;
 import com.SmarDelivery.infra.persistence.entities.ClienteEntity;
 import com.SmarDelivery.infra.persistence.repositories.ClienteRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -40,11 +44,22 @@ public class ClienteRepositoryGateway implements ClienteGateway {
                 .toList();
     }
 
+    @Transactional
     @Override
-    public Cliente atualizarCliente(Cliente clienteAtualizado) {
-        ClienteEntity cliente = clienteMapper.toEntity(clienteAtualizado);
-        ClienteEntity novosDadosCliente = clienteRepository.save(cliente);
-        return clienteMapper.toDomain(novosDadosCliente);
+    public Cliente atualizarCliente(Long clienteId, Map<String, Object> atualizacao) {
+        ClienteEntity clienteEntity = clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("Cliente" + clienteId + " não encontrado em sistema para atualização"));
+        Cliente clienteDomain = clienteMapper.toDomain(clienteEntity);
+        ObjectMapper objectMapper = new ObjectMapper();
+        PatchClienteRequestDto patchDto = objectMapper.convertValue(atualizacao, PatchClienteRequestDto.class);
+        Cliente clienteAtualizado = merge(patchDto, clienteDomain);
+        ClienteEntity clienteAtualizadoEntity = clienteMapper.toEntity(clienteAtualizado);
+        ClienteEntity novoCliente = clienteRepository.save(clienteAtualizadoEntity);
+
+        return clienteMapper.toDomain(novoCliente);
+    }
+
+    private Cliente merge(PatchClienteRequestDto patchDto, Cliente cliente) {
+        return clienteMapper.patchToCliente(patchDto, cliente);
     }
 
     @Override

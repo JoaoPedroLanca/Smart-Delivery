@@ -2,9 +2,9 @@ package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Cliente;
 import com.SmarDelivery.domain.usecases.cliente.*;
-import com.SmarDelivery.infra.dtos.requests.ClienteRequestDto;
-import com.SmarDelivery.infra.dtos.requests.PatchClienteRequestDto;
-import com.SmarDelivery.infra.dtos.responses.ClienteResponseDto;
+import com.SmarDelivery.infra.dtos.requests.cliente.ClienteRequestDto;
+import com.SmarDelivery.infra.dtos.requests.cliente.PatchClienteRequestDto;
+import com.SmarDelivery.infra.dtos.responses.cliente.ClienteResponseDto;
 import com.SmarDelivery.infra.mappers.ClienteMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,12 +55,10 @@ public class ClienteController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ClienteResponseDto> patchCliente(@PathVariable Long id, @RequestBody PatchClienteRequestDto patchDto) {
-        Cliente clienteExistente = buscarClientePorIdUsecase.execute(id);
-        Cliente clienteAtualizado = clienteMapper.patchToCliente(patchDto, clienteExistente);
-        clienteAtualizado = atualizarClienteUsecase.execute(clienteAtualizado);
-        ClienteResponseDto responseDto = clienteMapper.toResponse(clienteAtualizado);
-        return ResponseEntity.ok(responseDto);
+    public ResponseEntity<ClienteResponseDto> patchCliente(@PathVariable Long id, @RequestBody Map<String, Object> atualizacao) {
+        var clienteResponse = clienteMapper.toResponse(atualizarClienteUsecase.execute(id, atualizacao));
+
+        return ResponseEntity.ok(clienteResponse);
     }
 
     @DeleteMapping("/{id}")
