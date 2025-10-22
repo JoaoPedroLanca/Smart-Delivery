@@ -1,16 +1,21 @@
 package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Cardapio;
+import com.SmarDelivery.domain.entities.Restaurante;
+import com.SmarDelivery.domain.usecases.cardapio.AtualizarCardapioUsecase;
+import com.SmarDelivery.domain.usecases.cardapio.BuscarCardapioPorIdUsecase;
 import com.SmarDelivery.domain.usecases.cardapio.CriarCardapioUsecase;
 import com.SmarDelivery.infra.dtos.requests.cardapio.CardapioRequestDto;
+import com.SmarDelivery.infra.dtos.requests.cardapio.PatchCardapioRequestDto;
+import com.SmarDelivery.infra.dtos.requests.restaurante.PatchRestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.responses.cardapio.CardapioResponseDto;
+import com.SmarDelivery.infra.dtos.responses.restaurante.RestauranteResponseDto;
 import com.SmarDelivery.infra.mappers.CardapioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CardapioController {
 
     private final CriarCardapioUsecase criarCardapioUsecase;
+    private final AtualizarCardapioUsecase atualizarCardapioUsecase;
     private final CardapioMapper cardapioMapper;
 
     @PostMapping
@@ -25,5 +31,11 @@ public class CardapioController {
         var cardapioDomain = cardapioMapper.toDomain(requestDto);
         var cardapioResponse = cardapioMapper.toResponse(criarCardapioUsecase.execute(cardapioDomain));
         return ResponseEntity.ok(cardapioResponse);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CardapioResponseDto> atualizarCardapio(@PathVariable Long id, @RequestBody Map<String, Object> atualizacao) {
+        var cardapioAtualizado = cardapioMapper.toResponse(atualizarCardapioUsecase.execute(id, atualizacao));
+        return ResponseEntity.ok(cardapioAtualizado);
     }
 }
