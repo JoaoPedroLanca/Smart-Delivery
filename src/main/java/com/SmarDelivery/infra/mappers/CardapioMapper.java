@@ -5,6 +5,7 @@ import com.SmarDelivery.infra.dtos.requests.cardapio.CardapioRequestDto;
 import com.SmarDelivery.infra.dtos.requests.cardapio.PatchCardapioRequestDto;
 import com.SmarDelivery.infra.dtos.responses.cardapio.CardapioResponseDto;
 import com.SmarDelivery.infra.persistence.entities.CardapioEntity;
+import com.SmarDelivery.infra.persistence.entities.RestauranteEntity;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
@@ -14,12 +15,13 @@ public interface CardapioMapper {
     @Mapping(target = "restaurante_id", source = "restauranteId")
     Cardapio toDomain(CardapioRequestDto dto);
 
-    @Mapping(target = "restaurante", ignore = true)
+    @Mapping(target = "restaurante", source = "restaurante_id", qualifiedByName = "restauranteFromId")
     CardapioEntity toEntity(Cardapio domain);
 
     @Mapping(target = "restaurante_id", source = "restaurante.restauranteId")
     Cardapio toDomain(CardapioEntity entity);
 
+    @Mapping(target = "produtoId", source = "produtoId")
     CardapioResponseDto toResponse(Cardapio domain);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -29,9 +31,17 @@ public interface CardapioMapper {
         return new Cardapio(
                 original.produtoId(),
                 dto.nome() != null ? dto.nome() : original.nome(),
-                dto.preco() != 0.0 ? dto.preco() : original.preco(),
-                dto.disponivel(),
-                dto.restauranteId() != null ? dto.restauranteId() : original.restaurante_id()
+                dto.preco() != null ? dto.preco() : original.preco(),
+                dto.disponivel() != null ? dto.disponivel() : original.disponivel(),
+                original.restaurante_id()
         );
+    }
+
+    @Named("restauranteFromId")
+    default RestauranteEntity restauranteFromId(Long id) {
+        if (id == null) return null;
+        RestauranteEntity restaurante = new RestauranteEntity();
+        restaurante.setRestauranteId(id);
+        return restaurante;
     }
 }
