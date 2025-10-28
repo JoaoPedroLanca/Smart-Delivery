@@ -53,4 +53,10 @@ public class CardapioRepositoryGateway implements CardapioGateway {
     private Cardapio merge(PatchCardapioRequestDto patchDto, Cardapio cardapio) {
         return cardapioMapper.patchToCardapio(patchDto, cardapio);
     }
+
+    @Override
+    public void deletarProdutoPorId(Long cardapioId) {
+        cardapioRepository.findById(cardapioId).orElseThrow(() -> new RuntimeException("Cardápio" + cardapioId + " não encontrado em sistema para deleção"));
+        cardapioRepository.deleteById(cardapioId);
+    }
 }
