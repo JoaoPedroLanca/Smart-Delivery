@@ -83,4 +83,9 @@ public class BeanConfiguration {
     @Bean public AtualizarCardapioUsecase atualizarCardapioUsecase(CardapioGateway cardapioGateway) {
         return new AtualizarCardapioUsecaseImpl(cardapioGateway);
     }
+
+    @Bean
+    public DeletarProdutoPorIdUsecase deletarCardapioPorIdUsecase(CardapioGateway cardapioGateway) {
+        return new DeletarProdutoPorIdUsecaseImpl(cardapioGateway);
+    }
 }
