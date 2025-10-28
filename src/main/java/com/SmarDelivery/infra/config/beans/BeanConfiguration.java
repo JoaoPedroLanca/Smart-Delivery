@@ -2,9 +2,12 @@ package com.SmarDelivery.infra.config.beans;
 
 import com.SmarDelivery.domain.gateway.CardapioGateway;
 import com.SmarDelivery.domain.gateway.ClienteGateway;
+import com.SmarDelivery.domain.gateway.EntregadorGateway;
 import com.SmarDelivery.domain.gateway.RestauranteGateway;
 import com.SmarDelivery.domain.usecases.cardapio.*;
 import com.SmarDelivery.domain.usecases.cliente.*;
+import com.SmarDelivery.domain.usecases.entregador.CriarEntregadorUsecase;
+import com.SmarDelivery.domain.usecases.entregador.CriarEntregadorUsecaseImpl;
 import com.SmarDelivery.domain.usecases.restaurante.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -87,5 +90,12 @@ public class BeanConfiguration {
     @Bean
     public DeletarProdutoPorIdUsecase deletarCardapioPorIdUsecase(CardapioGateway cardapioGateway) {
         return new DeletarProdutoPorIdUsecaseImpl(cardapioGateway);
+    }
+
+    // Beans de Entregador
+
+    @Bean
+    public CriarEntregadorUsecase criarEntregadorUsecase(EntregadorGateway entregadorGateway) {
+        return new CriarEntregadorUsecaseImpl(entregadorGateway);
     }
 }
