@@ -107,4 +107,9 @@ public class BeanConfiguration {
     BuscarEntregadorPorIdUsecase buscarEntregadorPorIdUsecase(EntregadorGateway entregadorGateway) {
         return new BuscarEntregadorPorIdUsecaseImpl(entregadorGateway);
     }
+
+    @Bean
+    AtualizarEntregadorUsecase atualizarEntregadorUsecase(EntregadorGateway entregadorGateway) {
+        return new AtualizarEntregadorUsecaseImpl(entregadorGateway);
+    }
 }
