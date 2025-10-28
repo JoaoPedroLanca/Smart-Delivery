@@ -1,6 +1,7 @@
 package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Entregador;
+import com.SmarDelivery.domain.usecases.entregador.AtualizarEntregadorUsecase;
 import com.SmarDelivery.domain.usecases.entregador.BuscarEntregadorPorIdUsecase;
 import com.SmarDelivery.domain.usecases.entregador.BuscarTodosEntregadoresUsecase;
 import com.SmarDelivery.domain.usecases.entregador.CriarEntregadorUsecase;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +24,7 @@ public class EntregadorController {
     private final CriarEntregadorUsecase criarEntregadorUsecase;
     private final BuscarTodosEntregadoresUsecase buscarTodosEntregadoresUsecase;
     private final BuscarEntregadorPorIdUsecase buscarEntregadorPorIdUsecase;
+    private final AtualizarEntregadorUsecase atualizarEntregadorUsecase;
     private final EntregadorMapper entregadorMapper;
 
     @PostMapping
@@ -46,6 +49,13 @@ public class EntregadorController {
     public ResponseEntity<EntregadorResponseDto> buscarEntregadorPorId(@PathVariable Long id) {
         Entregador entregador = buscarEntregadorPorIdUsecase.execute(id);
         EntregadorResponseDto entregadorResponse = entregadorMapper.toResponse(entregador);
+
+        return ResponseEntity.ok(entregadorResponse);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<EntregadorResponseDto> atualizarEntregador(@PathVariable Long id, @RequestBody Map<String, Object> atualizacao) {
+        EntregadorResponseDto entregadorResponse = entregadorMapper.toResponse(atualizarEntregadorUsecase.execute(id, atualizacao));
 
         return ResponseEntity.ok(entregadorResponse);
     }
