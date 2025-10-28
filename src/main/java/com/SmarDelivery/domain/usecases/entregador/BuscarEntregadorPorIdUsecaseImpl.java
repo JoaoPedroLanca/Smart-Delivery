@@ -13,6 +13,6 @@ public class BuscarEntregadorPorIdUsecaseImpl implements BuscarEntregadorPorIdUs
 
     @Override
     public Entregador execute(Long entregadorId) {
-        return entregadorGateway.buscarEntregadorPorId(entregadorId);
+        return entregadorGateway.buscarEntregadorPorId(entregadorId).orElseThrow(() -> new RuntimeException("Entregador com id " + entregadorId + " não encontrado em sistema"));
     }
 }
