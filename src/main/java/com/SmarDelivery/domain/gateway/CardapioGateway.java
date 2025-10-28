@@ -12,4 +12,6 @@ public interface CardapioGateway {
     Optional<Cardapio> buscarCardapioPorId(Long cardapioId);
 
     Cardapio atualizarCardapio(Long cardapioId, Map<String, Object> atualizacao);
+
+    void deletarProdutoPorId(Long cardapioId);
 }
