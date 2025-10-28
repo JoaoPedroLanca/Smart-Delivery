@@ -6,8 +6,7 @@ import com.SmarDelivery.domain.gateway.EntregadorGateway;
 import com.SmarDelivery.domain.gateway.RestauranteGateway;
 import com.SmarDelivery.domain.usecases.cardapio.*;
 import com.SmarDelivery.domain.usecases.cliente.*;
-import com.SmarDelivery.domain.usecases.entregador.CriarEntregadorUsecase;
-import com.SmarDelivery.domain.usecases.entregador.CriarEntregadorUsecaseImpl;
+import com.SmarDelivery.domain.usecases.entregador.*;
 import com.SmarDelivery.domain.usecases.restaurante.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -97,5 +96,15 @@ public class BeanConfiguration {
     @Bean
     public CriarEntregadorUsecase criarEntregadorUsecase(EntregadorGateway entregadorGateway) {
         return new CriarEntregadorUsecaseImpl(entregadorGateway);
+    }
+
+    @Bean
+    BuscarTodosEntregadoresUsecase buscarTodosEntregadoresUsecase(EntregadorGateway entregadorGateway) {
+        return new BuscarTodosEntregadoresUsecaseImpl(entregadorGateway);
+    }
+
+    @Bean
+    BuscarEntregadorPorIdUsecase buscarEntregadorPorIdUsecase(EntregadorGateway entregadorGateway) {
+        return new BuscarEntregadorPorIdUsecaseImpl(entregadorGateway);
     }
 }
