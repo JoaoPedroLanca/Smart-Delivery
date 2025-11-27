@@ -31,11 +31,10 @@ public class PedidoEntity {
     private RestauranteEntity restaurante;
 
     @ManyToOne
-    @JoinColumn(name = "entregador_id", nullable = false)
+    @JoinColumn(name = "entregador_id", nullable = true)
     private EntregadorEntity entregador;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    @Column(name = "itens_do_pedido", nullable = false)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedidoEntity> itensDoPedido;
 
     @Column(name = "total_do_pedido",nullable = false)
@@ -51,13 +50,13 @@ public class PedidoEntity {
     @Column(name = "endereco_cliente", nullable = false)
     private String enderecoCliente;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String distancia;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "forma_de_pagamento", nullable = false)
     private FormaDePagamento formaDePagamento;
 
-    @Column(name = "tempo_estimado_de_entrega", nullable = false)
+    @Column(name = "tempo_estimado_de_entrega", nullable = true)
     private Long tempoEstimadoDeEntrega;
 }
