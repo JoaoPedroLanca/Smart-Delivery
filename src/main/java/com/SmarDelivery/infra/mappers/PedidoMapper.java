@@ -3,12 +3,16 @@ package com.SmarDelivery.infra.mappers;
 import com.SmarDelivery.domain.entities.ItemPedido;
 import com.SmarDelivery.domain.entities.Pedido;
 import com.SmarDelivery.infra.dtos.requests.pedido.ItemPedidoRequestDto;
+import com.SmarDelivery.infra.dtos.requests.pedido.PatchPedidoRequestDto;
 import com.SmarDelivery.infra.dtos.requests.pedido.PedidoRequestDto;
 import com.SmarDelivery.infra.dtos.responses.pedido.PedidoResponseDto;
 import com.SmarDelivery.infra.persistence.entities.ItemPedidoEntity;
 import com.SmarDelivery.infra.persistence.entities.PedidoEntity;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
@@ -82,4 +86,25 @@ public interface PedidoMapper {
     * */
 
     PedidoResponseDto toResponse(Pedido domain);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Pedido updatePedidoFromDto(PatchPedidoRequestDto dto, @MappingTarget Pedido pedido);
+
+    // Atualização manual para record imutável
+    default Pedido patchToPedido(PatchPedidoRequestDto dto, Pedido original) {
+        return new Pedido(
+                original.pedidoId(),
+                original.clienteId(),
+                original.restauranteId(),
+                original.entregadorId(),
+                original.itensDoPedido(),
+                original.totalDoPedido(),
+                dto.statusPedido() != null ? dto.statusPedido() : original.statusPedido(),
+                original.criacaoDoPedido(),
+                original.enderecoCliente(),
+                original.distancia(),
+                original.formaDePagamento(),
+                original.tempoEstimadoDeEntrega()
+        );
+    }
 }
