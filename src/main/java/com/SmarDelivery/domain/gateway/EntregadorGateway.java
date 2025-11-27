@@ -15,4 +15,6 @@ public interface EntregadorGateway {
     Optional<Entregador> buscarEntregadorPorId(Long entregadorId);
 
     Entregador atualizarEntregador(Long entregadorId, Map<String, Object> atualizacao);
+
+    void deletarEntregadorPorId(Long entregadorId);
 }

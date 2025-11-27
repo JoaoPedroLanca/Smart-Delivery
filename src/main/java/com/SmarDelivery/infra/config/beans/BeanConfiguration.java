@@ -112,4 +112,9 @@ public class BeanConfiguration {
     AtualizarEntregadorUsecase atualizarEntregadorUsecase(EntregadorGateway entregadorGateway) {
         return new AtualizarEntregadorUsecaseImpl(entregadorGateway);
     }
+
+    @Bean
+    DeletarEntregadorPorIdUsecase deletarEntregadorPorIdUsecase(EntregadorGateway entregadorGateway) {
+        return new DeletarEntregadorPorIdUsecaseImpl(entregadorGateway);
+    }
 }

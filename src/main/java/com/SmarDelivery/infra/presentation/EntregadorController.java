@@ -1,10 +1,7 @@
 package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Entregador;
-import com.SmarDelivery.domain.usecases.entregador.AtualizarEntregadorUsecase;
-import com.SmarDelivery.domain.usecases.entregador.BuscarEntregadorPorIdUsecase;
-import com.SmarDelivery.domain.usecases.entregador.BuscarTodosEntregadoresUsecase;
-import com.SmarDelivery.domain.usecases.entregador.CriarEntregadorUsecase;
+import com.SmarDelivery.domain.usecases.entregador.*;
 import com.SmarDelivery.infra.dtos.requests.entregador.EntregadorRequestDto;
 import com.SmarDelivery.infra.dtos.responses.entregador.EntregadorResponseDto;
 import com.SmarDelivery.infra.mappers.EntregadorMapper;
@@ -25,6 +22,7 @@ public class EntregadorController {
     private final BuscarTodosEntregadoresUsecase buscarTodosEntregadoresUsecase;
     private final BuscarEntregadorPorIdUsecase buscarEntregadorPorIdUsecase;
     private final AtualizarEntregadorUsecase atualizarEntregadorUsecase;
+    private final DeletarEntregadorPorIdUsecase deletarEntregadorPorIdUsecase;
     private final EntregadorMapper entregadorMapper;
 
     @PostMapping
@@ -58,5 +56,11 @@ public class EntregadorController {
         EntregadorResponseDto entregadorResponse = entregadorMapper.toResponse(atualizarEntregadorUsecase.execute(id, atualizacao));
 
         return ResponseEntity.ok(entregadorResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarEntregadorPorId(@PathVariable long id) {
+        deletarEntregadorPorIdUsecase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 }

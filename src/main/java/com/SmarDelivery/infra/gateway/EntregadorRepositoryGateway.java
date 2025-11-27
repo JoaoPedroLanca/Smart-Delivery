@@ -58,4 +58,9 @@ public class EntregadorRepositoryGateway implements EntregadorGateway {
     private Entregador merge(PatchEntregadorRequestDto patchDto, Entregador entregador) {
         return entregadorMapper.patchToEntregador(patchDto, entregador);
     }
+
+    @Override
+    public void deletarEntregadorPorId(Long entregadorId) {
+        entregadorRepository.deleteById(entregadorId);
+    }
 }
