@@ -133,7 +133,9 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public CriarPedidoUsecase criarPedidoUsecase(PedidoGateway pedidoGateway) {
-        return new CriarPedidoUsecaseImpl(pedidoGateway);
+    public CriarPedidoUsecase criarPedidoUsecase(PedidoGateway pedidoGateway, 
+                                                  RestauranteGateway restauranteGateway,
+                                                  CardapioGateway cardapioGateway) {
+        return new CriarPedidoUsecaseImpl(pedidoGateway, restauranteGateway, cardapioGateway);
     }
 }

@@ -1,14 +1,19 @@
 package com.SmarDelivery.infra.mappers;
 
+import com.SmarDelivery.domain.entities.ItemPedido;
 import com.SmarDelivery.domain.entities.Pedido;
+import com.SmarDelivery.infra.dtos.requests.pedido.ItemPedidoRequestDto;
 import com.SmarDelivery.infra.dtos.requests.pedido.PedidoRequestDto;
 import com.SmarDelivery.infra.dtos.responses.pedido.PedidoResponseDto;
+import com.SmarDelivery.infra.persistence.entities.ItemPedidoEntity;
 import com.SmarDelivery.infra.persistence.entities.PedidoEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+import java.util.List;
+
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {ItemPedidoMapper.class})
 public interface PedidoMapper {
 
 
@@ -18,14 +23,34 @@ public interface PedidoMapper {
     * */
 
     @Mapping(target = "pedidoId", ignore = true)
-    @Mapping(target = "clienteId", ignore = true)
     @Mapping(target = "entregadorId", ignore = true)
+    @Mapping(target = "itensDoPedido", source = "itens")
     @Mapping(target = "totalDoPedido", ignore = true)
     @Mapping(target = "statusPedido", ignore = true)
     @Mapping(target = "criacaoDoPedido", ignore = true)
     @Mapping(target = "distancia", ignore = true)
     @Mapping(target = "tempoEstimadoDeEntrega", ignore = true)
     Pedido toDomain(PedidoRequestDto dto);
+
+    /*
+     * Converte ItemPedidoRequestDto para ItemPedido (Domain)
+     * O preço unitário será preenchido no Use Case após buscar o produto
+     */
+    default ItemPedido itemPedidoRequestToDomain(ItemPedidoRequestDto dto) {
+        return new ItemPedido(
+                null, // itemId será gerado pelo banco
+                dto.quantidade(),
+                0.0, // precoUnitario será preenchido no Use Case
+                null, // pedidoId será preenchido depois
+                dto.produtoId()
+        );
+    }
+
+    default List<ItemPedido> itemPedidoRequestListToDomain(List<ItemPedidoRequestDto> dtos) {
+        return dtos.stream()
+                .map(this::itemPedidoRequestToDomain)
+                .toList();
+    }
 
     /*
     * Fonte: Record de Domínio o Pedido (Camada Pura)
@@ -36,6 +61,7 @@ public interface PedidoMapper {
     @Mapping(target = "cliente.clienteId", source = "clienteId")
     @Mapping(target = "restaurante.restauranteId", source = "restauranteId")
     @Mapping(target = "entregador.entregadorId", source = "entregadorId")
+    @Mapping(target = "itensDoPedido", source = "itensDoPedido")
     PedidoEntity toEntity(Pedido domain);
 
     /*
@@ -46,7 +72,8 @@ public interface PedidoMapper {
 
     @Mapping(target = "clienteId", source = "cliente.clienteId")
     @Mapping(target = "restauranteId", source = "restaurante.restauranteId")
-    @Mapping(target = "entregadorId", source = "entregador.entregadorId")
+    @Mapping(target = "entregadorId", expression = "java(entity.getEntregador() != null ? entity.getEntregador().getEntregadorId() : null)")
+    @Mapping(target = "itensDoPedido", source = "itensDoPedido")
     Pedido toDomain(PedidoEntity entity);
 
     /*

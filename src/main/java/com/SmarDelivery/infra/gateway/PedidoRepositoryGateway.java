@@ -21,6 +21,12 @@ public class PedidoRepositoryGateway implements PedidoGateway {
     @Override
     public Pedido criarPedido(Pedido pedido) {
         var pedidoEntity = pedidoMapper.toEntity(pedido);
+        
+        // Garante que os itens tenham referência ao pedido
+        if (pedidoEntity.getItensDoPedido() != null) {
+edidoEntity.getItensDoPedido().forEach(item -> item.setPedido(pedidoEntity));            p
+        }
+        
         var pedidoSalvo = pedidoRepository.save(pedidoEntity);
 
         return pedidoMapper.toDomain(pedidoSalvo);
