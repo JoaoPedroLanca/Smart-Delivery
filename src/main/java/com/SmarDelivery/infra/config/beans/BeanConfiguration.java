@@ -131,4 +131,9 @@ public class BeanConfiguration {
     public BuscarTodosPedidosUsecase buscarTodosPedidosUsecase(PedidoGateway pedidoGateway) {
         return new BuscarTodosPedidosUsecaseImpl(pedidoGateway);
     }
+
+    @Bean
+    public CriarPedidoUsecase criarPedidoUsecase(PedidoGateway pedidoGateway) {
+        return new CriarPedidoUsecaseImpl(pedidoGateway);
+    }
 }

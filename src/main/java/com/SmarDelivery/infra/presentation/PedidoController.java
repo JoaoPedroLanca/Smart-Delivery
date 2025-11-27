@@ -46,12 +46,10 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> criarPedido(@RequestBody PedidoRequestDto requestDto) {
-        criarPedidoUsecase.execute(pedidoMapper.toDomain(requestDto));
-        Map<String, Object> resposta = new LinkedHashMap<>();
-        resposta.put("Mensagem: ", "Novo pedido cadastrado no sistema com sucesso!");
-        resposta.put("Dados do pedido: ", pedidoMapper.toDomain(requestDto));
+    public ResponseEntity<PedidoResponseDto> criarPedido(@RequestBody PedidoRequestDto requestDto) {
+        var pedidoDomain = pedidoMapper.toDomain(requestDto);
+        var pedidoResponse = pedidoMapper.toResponse(criarPedidoUsecase.execute(pedidoDomain));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoResponse);
     }
 }
