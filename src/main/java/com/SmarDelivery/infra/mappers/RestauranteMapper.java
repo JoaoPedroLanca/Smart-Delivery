@@ -4,7 +4,6 @@ import com.SmarDelivery.domain.entities.Restaurante;
 import com.SmarDelivery.infra.dtos.requests.restaurante.RestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.requests.restaurante.PatchRestauranteRequestDto;
 import com.SmarDelivery.infra.dtos.responses.restaurante.RestauranteResponseDto;
-import com.SmarDelivery.infra.persistence.entities.CardapioEntity;
 import com.SmarDelivery.infra.persistence.entities.RestauranteEntity;
 import org.mapstruct.*;
 
