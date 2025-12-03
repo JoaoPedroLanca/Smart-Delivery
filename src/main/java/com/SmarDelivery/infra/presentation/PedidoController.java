@@ -1,6 +1,7 @@
 package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Pedido;
+import com.SmarDelivery.domain.usecases.pedido.AtualizarPedidoUsecase;
 import com.SmarDelivery.domain.usecases.pedido.BuscarPedidoPorIdUsecase;
 import com.SmarDelivery.domain.usecases.pedido.BuscarTodosPedidosUsecase;
 import com.SmarDelivery.domain.usecases.pedido.CriarPedidoUsecase;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +24,7 @@ public class PedidoController {
     private final CriarPedidoUsecase criarPedidoUsecase;
     private final BuscarPedidoPorIdUsecase buscarPedidoPorIdUsecase;
     private final BuscarTodosPedidosUsecase buscarTodosPedidosUsecase;
+    private final AtualizarPedidoUsecase atualizarPedidoUsecase;
     private final PedidoMapper pedidoMapper;
 
     @GetMapping
@@ -51,5 +52,12 @@ public class PedidoController {
         var pedidoResponse = pedidoMapper.toResponse(criarPedidoUsecase.execute(pedidoDomain));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoResponse);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PedidoResponseDto> patchPedido(@PathVariable Long id, @RequestBody Map<String, Object> atualizacao) {
+        var pedidoResponse = pedidoMapper.toResponse(atualizarPedidoUsecase.execute(id, atualizacao));
+
+        return ResponseEntity.ok(pedidoResponse);
     }
 }
