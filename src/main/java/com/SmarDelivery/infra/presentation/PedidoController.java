@@ -2,6 +2,7 @@ package com.SmarDelivery.infra.presentation;
 
 import com.SmarDelivery.domain.entities.Pedido;
 import com.SmarDelivery.domain.usecases.pedido.*;
+import com.SmarDelivery.infra.dtos.requests.pedido.AceitarPedidoRequestDto;
 import com.SmarDelivery.infra.dtos.requests.pedido.PedidoRequestDto;
 import com.SmarDelivery.infra.dtos.responses.pedido.PedidoResponseDto;
 import com.SmarDelivery.infra.mappers.PedidoMapper;
@@ -23,6 +24,7 @@ public class PedidoController {
     private final BuscarTodosPedidosUsecase buscarTodosPedidosUsecase;
     private final AtualizarPedidoUsecase atualizarPedidoUsecase;
     private final AceitarPedidoRestauranteUsecase aceitarPedidoRestauranteUsecase;
+    private final AceitarPedidoEntregadorUsecase aceitarPedidoEntregadorUsecase;
     private final PedidoMapper pedidoMapper;
 
     @GetMapping
@@ -63,6 +65,15 @@ public class PedidoController {
     public ResponseEntity<PedidoResponseDto> aceitarPedidoRestaurante(@PathVariable Long id) {
         var aceitarPedido = aceitarPedidoRestauranteUsecase.execute(id);
         PedidoResponseDto response = pedidoMapper.toResponse(aceitarPedido);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}/entregador/aceitar")
+    public ResponseEntity<PedidoResponseDto> aceitarPedidoEntregador(
+            @PathVariable Long id,
+            @RequestBody AceitarPedidoRequestDto requestDto) {
+        var aceitarEntrega = aceitarPedidoEntregadorUsecase.execute(id, requestDto.entregadorId());
+        var response = pedidoMapper.toResponse(aceitarEntrega);
         return ResponseEntity.ok(response);
     }
 }

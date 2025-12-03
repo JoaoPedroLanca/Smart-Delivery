@@ -148,4 +148,9 @@ public class BeanConfiguration {
     public AceitarPedidoRestauranteUsecase aceitarPedidoRestauranteUsecase(PedidoGateway pedidoGateway) {
         return new AceitarPedidoRestauranteUsecaseImpl(pedidoGateway);
     }
+
+    @Bean
+    public AceitarPedidoEntregadorUsecase aceitarPedidoEntregadorUsecase(PedidoGateway pedidoGateway) {
+        return new AceitarPedidoEntregadorUsecaseImpl(pedidoGateway);
+    }
 }

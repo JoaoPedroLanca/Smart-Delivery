@@ -2,6 +2,8 @@ package com.SmarDelivery.infra.dtos.requests.pedido;
 
 import com.SmarDelivery.domain.enums.StatusDoPedido;
 
-public record PatchPedidoRequestDto(StatusDoPedido statusPedido) {
+public record PatchPedidoRequestDto(
+        StatusDoPedido statusPedido,
+        Long entregadorId) {
 }
 

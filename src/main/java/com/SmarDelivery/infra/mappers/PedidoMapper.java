@@ -23,7 +23,7 @@ public interface PedidoMapper {
 
     /*
     * Fonte: DTO de Requisição o PedidoRequestDto (Camada Externa)
-    * Destino: Record de Domínio o Pedido (Camada Pura)
+    * Destino: Record de Domínio o Pedido
     * */
 
     @Mapping(target = "pedidoId", ignore = true)
@@ -96,7 +96,7 @@ public interface PedidoMapper {
                 original.pedidoId(),
                 original.clienteId(),
                 original.restauranteId(),
-                original.entregadorId(),
+                dto.entregadorId() != null ? dto.entregadorId() : original.entregadorId(),
                 original.itensDoPedido(),
                 original.totalDoPedido(),
                 dto.statusPedido() != null ? dto.statusPedido() : original.statusPedido(),
