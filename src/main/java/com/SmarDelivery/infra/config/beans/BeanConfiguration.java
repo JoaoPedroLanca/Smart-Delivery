@@ -158,4 +158,9 @@ public class BeanConfiguration {
     public FinalizarEntregaUsecase finalizarEntregaUsecase(PedidoGateway pedidoGateway) {
         return new FinalizarEntregaUsecaseImpl(pedidoGateway);
     }
+
+    @Bean
+    public CancelarPedidoUsecase cancelarPedidoUsecase(PedidoGateway pedidoGateway) {
+        return new CancelarPedidoUsecaseImpl(pedidoGateway);
+    }
 }

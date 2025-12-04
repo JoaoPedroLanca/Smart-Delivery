@@ -87,4 +87,12 @@ public class PedidoController {
         var response = pedidoMapper.toResponse(pedidoFinalizado);
         return ResponseEntity.ok(response);
     }
+
+    @PatchMapping("/{id}/cancelar")
+    public ResponseEntity<Void> cancelarPedido(
+            @PathVariable Long id,
+            @RequestBody PedidoRequestDto requestDto) {
+        cancelarPedidoUsecase.execute(id, requestDto.clienteId(), requestDto.restauranteId());
+        return ResponseEntity.noContent().build();
+    }
 }
