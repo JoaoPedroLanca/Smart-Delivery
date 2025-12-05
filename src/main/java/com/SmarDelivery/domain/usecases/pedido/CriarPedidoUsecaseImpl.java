@@ -30,58 +30,52 @@ public class CriarPedidoUsecaseImpl implements CriarPedidoUsecase{
 
     @Override
     public Pedido execute(Pedido pedido) {
-        // Valida se restaurante existe
+
         Restaurante restaurante = restauranteGateway.buscarRestaurantePorId(pedido.restauranteId())
                 .orElseThrow(() -> new RuntimeException("Restaurante com ID " + pedido.restauranteId() + " não encontrado"));
 
-        // Valida se restaurante está aberto
         if (!restaurante.aberto()) {
             throw new RuntimeException("Restaurante está fechado no momento");
         }
 
-        // Valida e calcula total dos itens
         List<ItemPedido> itensValidados = new ArrayList<>();
         double totalDoPedido = 0.0;
 
         for (ItemPedido item : pedido.itensDoPedido()) {
-            // Busca o produto no cardápio
+
             Cardapio produto = cardapioGateway.buscarCardapioPorId(item.produtoId())
                     .orElseThrow(() -> new RuntimeException("Produto com ID " + item.produtoId() + " não encontrado"));
 
-            // Valida se produto está disponível
             if (!produto.disponivel()) {
                 throw new RuntimeException("Produto " + produto.nome() + " não está disponível no momento");
             }
 
-            // Calcula subtotal do item
             double subtotal = produto.preco() * item.quantidade();
             totalDoPedido += subtotal;
 
-            // Cria item validado com preço unitário do produto
             ItemPedido itemValidado = new ItemPedido(
-                    null, // itemId será gerado automaticamente
+                    null,
                     item.quantidade(),
                     produto.preco(),
-                    null, // pedidoId será preenchido depois
+                    null,
                     item.produtoId()
             );
             itensValidados.add(itemValidado);
         }
 
-        // Cria pedido com valores calculados e iniciais
         Pedido pedidoCompleto = new Pedido(
-                null, // pedidoId será gerado automaticamente
+                null,
                 pedido.clienteId(),
                 pedido.restauranteId(),
-                null, // entregadorId será null inicialmente (até um entregador aceitar)
+                null,
                 itensValidados,
                 totalDoPedido,
                 StatusDoPedido.CRIADO,
                 LocalDateTime.now(),
                 pedido.enderecoCliente(),
-                null, // distancia será calculada depois (Google Maps)
+                null,
                 pedido.formaDePagamento(),
-                null // tempoEstimadoDeEntrega será calculado depois (Google Maps)
+                null
         );
 
         Pedido pedidoSalvo = pedidoGateway.criarPedido(pedidoCompleto);
