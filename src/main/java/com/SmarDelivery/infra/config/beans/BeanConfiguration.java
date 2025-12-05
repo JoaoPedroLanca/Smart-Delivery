@@ -1,10 +1,6 @@
 package com.SmarDelivery.infra.config.beans;
 
-import com.SmarDelivery.domain.gateway.CardapioGateway;
-import com.SmarDelivery.domain.gateway.ClienteGateway;
-import com.SmarDelivery.domain.gateway.EntregadorGateway;
-import com.SmarDelivery.domain.gateway.PedidoGateway;
-import com.SmarDelivery.domain.gateway.RestauranteGateway;
+import com.SmarDelivery.domain.gateway.*;
 import com.SmarDelivery.domain.usecases.cardapio.*;
 import com.SmarDelivery.domain.usecases.cliente.*;
 import com.SmarDelivery.domain.usecases.entregador.*;
@@ -133,10 +129,11 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public CriarPedidoUsecase criarPedidoUsecase(PedidoGateway pedidoGateway, 
-                                                  RestauranteGateway restauranteGateway,
-                                                  CardapioGateway cardapioGateway) {
-        return new CriarPedidoUsecaseImpl(pedidoGateway, restauranteGateway, cardapioGateway);
+    public CriarPedidoUsecase criarPedidoUsecase(PedidoGateway pedidoGateway,
+                                                 RestauranteGateway restauranteGateway,
+                                                 CardapioGateway cardapioGateway,
+                                                 NotificationGateway notificationGateway) {
+        return new CriarPedidoUsecaseImpl(pedidoGateway, restauranteGateway, cardapioGateway, notificationGateway);
     }
 
     @Bean

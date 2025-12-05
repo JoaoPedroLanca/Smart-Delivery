@@ -6,6 +6,7 @@ import com.SmarDelivery.domain.entities.Pedido;
 import com.SmarDelivery.domain.entities.Restaurante;
 import com.SmarDelivery.domain.enums.StatusDoPedido;
 import com.SmarDelivery.domain.gateway.CardapioGateway;
+import com.SmarDelivery.domain.gateway.NotificationGateway;
 import com.SmarDelivery.domain.gateway.PedidoGateway;
 import com.SmarDelivery.domain.gateway.RestauranteGateway;
 
@@ -18,13 +19,13 @@ public class CriarPedidoUsecaseImpl implements CriarPedidoUsecase{
     private final PedidoGateway pedidoGateway;
     private final RestauranteGateway restauranteGateway;
     private final CardapioGateway cardapioGateway;
+    private final NotificationGateway notificationGateway;
 
-    public CriarPedidoUsecaseImpl(PedidoGateway pedidoGateway, 
-                                  RestauranteGateway restauranteGateway,
-                                  CardapioGateway cardapioGateway) {
+    public CriarPedidoUsecaseImpl(PedidoGateway pedidoGateway, RestauranteGateway restauranteGateway, CardapioGateway cardapioGateway, NotificationGateway notificationGateway) {
         this.pedidoGateway = pedidoGateway;
         this.restauranteGateway = restauranteGateway;
         this.cardapioGateway = cardapioGateway;
+        this.notificationGateway = notificationGateway;
     }
 
     @Override
@@ -83,6 +84,10 @@ public class CriarPedidoUsecaseImpl implements CriarPedidoUsecase{
                 null // tempoEstimadoDeEntrega será calculado depois (Google Maps)
         );
 
-        return pedidoGateway.criarPedido(pedidoCompleto);
+        Pedido pedidoSalvo = pedidoGateway.criarPedido(pedidoCompleto);
+
+        notificationGateway.notificarPedidoCriado(pedidoSalvo);
+
+        return pedidoSalvo;
     }
 }
