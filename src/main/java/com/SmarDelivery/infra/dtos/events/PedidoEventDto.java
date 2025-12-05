@@ -2,6 +2,8 @@ package com.SmarDelivery.infra.dtos.events;
 
 import com.SmarDelivery.domain.enums.StatusDoPedido;
 
+import java.time.LocalDateTime;
+
 public record PedidoEventDto(
         Long pedidoId,
         Long clienteId,
@@ -9,6 +11,6 @@ public record PedidoEventDto(
         Long entregadorId,
         StatusDoPedido statusDoPedido,
         String tipoEvento,
-        String timestampEvento
+        LocalDateTime timestampEvento
 ) {
 }
